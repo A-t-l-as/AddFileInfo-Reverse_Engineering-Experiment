@@ -11,7 +11,7 @@ $defFile = "Interface$InterfaceId.def"
 
 # --- Wywolanie skryptu Pythona ---
 $intFile = "Interface$InterfaceId.int"
-python add_file_info.py $defFile $intFile -text -name $InterfaceName
+python AddFileInfo2026_RE.py $defFile $intFile -text -name $InterfaceName
 
 # --- Pauza (odpowiednik "pause") ---
 Read-Host "Press enter to continue ..."
