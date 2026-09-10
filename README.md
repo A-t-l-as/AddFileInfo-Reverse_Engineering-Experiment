@@ -93,7 +93,7 @@ python3 AddFileInfo2026_RE.py dane.txt dane.afi -name "dane.txt" -guidCreate -at
 
 ### Tryb odwrotny (`-extract`)
 
-Odczytuje plik przetworzony wcześniej przez `AddFileInfo`/`add_file_info.py`,
+Odczytuje plik przetworzony wcześniej przez `AddFileInfo2026_RE`/`AddFileInfo2026_RE.py`,
 wypisuje na standardowe wyjście zapisane metadane (nazwa/atrybut/GUID) i
 zapisuje oryginalną zawartość do pliku wynikowego.
 
@@ -237,7 +237,7 @@ python3 AddFileInfo2026_RE.py data.txt data.afi -name "data.txt" -guidCreate -at
 
 ### Reverse mode (`-extract`)
 
-Reads a file previously processed by `AddFileInfo`/`add_file_info.py`,
+Reads a file previously processed by `AddFileInfo2026_RE`/`AddFileInfo2026_RE.py`,
 prints the stored metadata (name/attribute/GUID) to standard output, and
 writes the original content to an output file.
 
