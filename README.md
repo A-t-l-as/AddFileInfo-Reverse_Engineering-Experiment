@@ -8,7 +8,7 @@ powstały dwie niezależne, działające implementacje:
 - **`main.cpp`** - reimplementacja w idiomatycznym, nowoczesnym C++, korzystająca
   z Win32 API (`CreateFileA`, `CoCreateGuid`), możliwie wiernie odtwarzająca
   zachowanie oryginału.
-- **`add_file_info.py`** - port 1:1 logiki z `main.cpp` do Pythona, bez żadnej
+- **`AddFileInfo2026_RE.py`** - port 1:1 logiki z `main.cpp` do Pythona, bez żadnej
   zależności od Win32 (zamiast `CoCreateGuid` używa modułu `uuid`). Działa na
   dowolnym systemie operacyjnym.
 
@@ -58,7 +58,7 @@ uint8_t  guid[16];           // surowe 16 bajtów GUID-a, ułożone dokładnie
 
 - **`main.cpp`** - Windows + kompilator zgodny z MSVC (używa `<windows.h>`,
   `<objbase.h>` i linkuje `ole32.lib`).
-- **`add_file_info.py`** - Python 3.7+ (bez zewnętrznych zależności, tylko
+- **`AddFileInfo2026_RE.py`** - Python 3.7+ (bez zewnętrznych zależności, tylko
   biblioteka standardowa).
 
 ## Użycie
@@ -68,8 +68,9 @@ Obie implementacje mają identyczny interfejs wiersza poleceń.
 ### Tryb zapisu (dodanie nagłówka do pliku)
 
 ```
-AddFileInfo <plik_źródłowy> <plik_docelowy> [opcje]
-add_file_info.py <plik_źródłowy> <plik_docelowy> [opcje]
+AddFileInfo2026_RE.exe <plik_źródłowy> <plik_docelowy> [opcje]
+python AddFileInfo2026_RE.py <plik_źródłowy> <plik_docelowy> [opcje]
+AddFileInfo2026_RE.exe <plik wejściowy.def> <plik wyjściowy.int> -text -name <nazwa interfejsu>
 ```
 
 Opcje:
@@ -87,7 +88,7 @@ Opcje:
 Przykład:
 
 ```bash
-python3 add_file_info.py dane.txt dane.afi -name "dane.txt" -guidCreate -attrib 0x20
+python3 AddFileInfo2026_RE.py dane.txt dane.afi -name "dane.txt" -guidCreate -attrib 0x20
 ```
 
 ### Tryb odwrotny (`-extract`)
@@ -97,7 +98,7 @@ wypisuje na standardowe wyjście zapisane metadane (nazwa/atrybut/GUID) i
 zapisuje oryginalną zawartość do pliku wynikowego.
 
 ```
-add_file_info.py -extract <plik_binarny> <plik_wyjściowy> [-crlf]
+AddFileInfo2026_RE.py -extract <plik_binarny> <plik_wyjściowy> [-crlf]
 ```
 
 - `-crlf` - wstawia `CR` przed każdym `LF`, odtwarzając zakończenia linii w
@@ -109,7 +110,7 @@ add_file_info.py -extract <plik_binarny> <plik_wyjściowy> [-crlf]
 Przykład:
 
 ```bash
-python3 add_file_info.py -extract dane.afi dane_odzyskane.txt -crlf
+python3 AddFileInfo2026_RE.py -extract dane.afi dane_odzyskane.txt -crlf
 ```
 
 ## Status projektu
@@ -130,7 +131,7 @@ wyglądał następująco:
    przez program i odzyskać z niego oryginalną zawartość oraz zapisane w
    nagłówku metadane - tej funkcji nie było w oryginalnym `.exe`.
 4. Na końcu cały program został przepisany przez AI na Pythona
-   (`add_file_info.py`), zachowując 1:1 logikę z `main.cpp`, ale bez zależności
+   (`AddFileInfo2026_RE.py`), zachowując 1:1 logikę z `main.cpp`, ale bez zależności
    od Win32 API, dzięki czemu działa na dowolnym systemie operacyjnym.
 
 Format pliku i zachowanie narzędzia zostały zrekonstruowane na podstawie
@@ -201,7 +202,7 @@ uint8_t  guid[16];           // raw 16 bytes of the GUID, laid out exactly
 
 - **`main.cpp`** - Windows + an MSVC-compatible compiler (uses `<windows.h>`,
   `<objbase.h>` and links `ole32.lib`).
-- **`add_file_info.py`** - Python 3.7+ (no external dependencies, standard
+- **`AddFileInfo2026_RE.py`** - Python 3.7+ (no external dependencies, standard
   library only).
 
 ## Usage
@@ -211,8 +212,9 @@ Both implementations share an identical command-line interface.
 ### Write mode (adding a header to a file)
 
 ```
-AddFileInfo <source_file> <target_file> [options]
-add_file_info.py <source_file> <target_file> [options]
+AddFileInfo2026_RE.exe <source_file> <target_file> [options]
+python AddFileInfo2026_RE.py <source_file> <target_file> [options]
+AddFileInfo2026_RE.exe <input file.def> <output file.int> -text -name <interface name>
 ```
 
 Options:
@@ -230,7 +232,7 @@ Options:
 Example:
 
 ```bash
-python3 add_file_info.py data.txt data.afi -name "data.txt" -guidCreate -attrib 0x20
+python3 AddFileInfo2026_RE.py data.txt data.afi -name "data.txt" -guidCreate -attrib 0x20
 ```
 
 ### Reverse mode (`-extract`)
@@ -240,7 +242,7 @@ prints the stored metadata (name/attribute/GUID) to standard output, and
 writes the original content to an output file.
 
 ```
-add_file_info.py -extract <binary_file> <output_file> [-crlf]
+AddFileInfo2026_RE.py -extract <binary_file> <output_file> [-crlf]
 ```
 
 - `-crlf` - inserts a `CR` before every `LF`, restoring Windows-style line
@@ -252,7 +254,7 @@ add_file_info.py -extract <binary_file> <output_file> [-crlf]
 Example:
 
 ```bash
-python3 add_file_info.py -extract data.afi data_recovered.txt -crlf
+python3 AddFileInfo2026_RE.py -extract data.afi data_recovered.txt -crlf
 ```
 
 ## Project status
@@ -273,7 +275,7 @@ went as follows:
    back and its original content and header metadata recovered - this
    feature did not exist in the original `.exe`.
 4. Finally, the entire program was rewritten by the AI into Python
-   (`add_file_info.py`), preserving the logic of `main.cpp` 1:1, but without
+   (`AddFileInfo2026_RE.py`), preserving the logic of `main.cpp` 1:1, but without
    any dependency on the Win32 API, so it runs on any operating system.
 
 The file format and tool behavior were reconstructed based on analysis of
