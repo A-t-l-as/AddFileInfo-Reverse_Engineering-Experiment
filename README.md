@@ -151,7 +151,7 @@ independent, working implementations were produced:
 - **`main.cpp`** - a reimplementation in idiomatic, modern C++, using the
   Win32 API (`CreateFileA`, `CoCreateGuid`), aiming to reproduce the
   original's behavior as faithfully as possible.
-- **`add_file_info.py`** - a 1:1 port of the logic from `main.cpp` to Python,
+- **`AddFileInfo2026_RE.py`** - a 1:1 port of the logic from `main.cpp` to Python,
   with no dependency on Win32 (it uses the `uuid` module instead of
   `CoCreateGuid`). Runs on any operating system.
 
